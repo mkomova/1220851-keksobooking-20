@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url]
 
 * Студент: [Мария Комова](https://up.htmlacademy.ru/javascript/20/user/1220851).
-* Наставник: `Неизвестно`.
+* Наставник: [Денис Евстратчик](https://htmlacademy.ru/profile/denmetall).
 
 ---
 
