@@ -90,3 +90,32 @@ for (var i = 0; i < RENT_QUANTITY; i++) {
 
   rentAdverts.push(rentAdvert);
 }
+
+var map = document.querySelector('.map');
+map.classList.remove('map--faded');
+
+var mapPinsElement = document.querySelector('.map__pins');
+
+var pinTemplate = document.querySelector('#pin')
+  .content
+  .querySelector('.map__pin');
+
+var generatePin = function (forRent) {
+  var pin = pinTemplate.cloneNode(true);
+  var imgElement = pin.querySelector('img');
+
+  imgElement.setAttribute('src', forRent.author.avatar);
+  imgElement.setAttribute('alt', forRent.offer.title);
+  pin.style.left = forRent.location.x;
+  pin.style.top = forRent.location.y;
+
+  return pin;
+};
+
+var fragment = document.createDocumentFragment();
+for (var k = 0; k < rentAdverts.length; k++) {
+  fragment.appendChild(generatePin(rentAdverts[k]));
+}
+mapPinsElement.appendChild(fragment);
+
+map.querySelector('.map').classList.remove('map--faded');
