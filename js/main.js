@@ -102,7 +102,7 @@ var generatePin = function (forRent) {
 
   imgElement.setAttribute('src', forRent.author.avatar);
   imgElement.setAttribute('alt', forRent.offer.title);
-  pin.style.left = forRent.location.x - PIN_WIDTH;
+  pin.style.left = forRent.location.x - PIN_WIDTH / 2;
   pin.style.top = forRent.location.y - PIN_HEIGHT;
 
   return pin;
