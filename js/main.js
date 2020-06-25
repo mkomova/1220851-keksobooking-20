@@ -61,7 +61,7 @@ var generateRentAdverts = function (quantity) {
 
     rentAdverts[i] = {
       author: {
-        avatar: 'img/avatars/user0' + i + '.png',
+        avatar: 'img/avatars/user0' + (i + 1) + '.png',
       },
       offer: {
         title: 'Заголовок предложения ',
@@ -102,8 +102,8 @@ var generatePin = function (forRent) {
 
   imgElement.setAttribute('src', forRent.author.avatar);
   imgElement.setAttribute('alt', forRent.offer.title);
-  pin.style.left = forRent.location.x - PIN_WIDTH / 2;
-  pin.style.top = forRent.location.y - PIN_HEIGHT;
+  pin.style.left = forRent.location.x - PIN_WIDTH / 2 + 'px';
+  pin.style.top = forRent.location.y - PIN_HEIGHT + 'px';
 
   return pin;
 };
