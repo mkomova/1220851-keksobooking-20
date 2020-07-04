@@ -128,7 +128,8 @@ var generateCard = function (rentAd) {
   var cardType = offerCard.querySelector('.popup__type');
   var cardCapacity = offerCard.querySelector('.popup__text--capacity');
   var cardTime = offerCard.querySelector('.popup__text--time');
-  var cardFeatures = offerCard.querySelector('.popup__features');
+  var cardFeaturesContainer = offerCard.querySelector('.popup__features');
+  var cardFeatures = cardFeaturesContainer.children;
   var cardDescription = offerCard.querySelector('.popup__description');
   var cardPhotos = offerCard.querySelector('.popup__photos');
   var cardAvatar = offerCard.querySelector('.popup__avatar');
@@ -154,15 +155,36 @@ var generateCard = function (rentAd) {
 
   cardCapacity.textContent = rentAd.offer.rooms + ' комнаты для ' + rentAd.offer.guests + ' гостей';
   cardTime.textContent = 'Заезд после ' + rentAd.offer.checkin + ', выезд до ' + rentAd.offer.checkout;
-  cardFeatures.textContent = rentAd.offer.features;
+
+  var generateFeatures = function (features) {
+    var fragmentFeatures = document.createDocumentFragment();
+
+    features.forEach(function (feature) {
+      var featureElement = document.createElement('li');
+      featureElement.className = 'popup__feature popup__feature--' + feature;
+      fragmentFeatures.appendChild(featureElement);
+      return featureElement;
+    });
+    return fragmentFeatures;
+  };
+
+  for (var j = cardFeatures.length; j--;) {
+    cardFeaturesContainer.removeChild(cardFeatures[j]);
+  }
+  cardFeaturesContainer.appendChild(generateFeatures(rentAd.offer.features));
+
   cardDescription.textContent = rentAd.offer.description;
 
   var getPhotos = function (array, block) {
     var fragmentPhoto = document.createDocumentFragment();
 
+    block.innerHTML = '';
+
     for (var i = 0; i < array.length; i++) {
       var photo = document.createElement('img');
       photo.src = array[i];
+      photo.width = 45;
+      photo.height = 40;
       photo.classList.add('popup__photo');
 
       fragmentPhoto.appendChild(photo);
