@@ -163,7 +163,6 @@ var generateCard = function (rentAd) {
       var featureElement = document.createElement('li');
       featureElement.className = 'popup__feature popup__feature--' + feature;
       fragmentFeatures.appendChild(featureElement);
-      return featureElement;
     });
     return fragmentFeatures;
   };
