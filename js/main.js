@@ -245,13 +245,50 @@ var activateMap = function () {
 mapPinMain.addEventListener('mousedown', function (evt) {
   if (evt.button === LEFT_MOUSE_BUTTON) {
     activateMap();
+    getAddress();
   }
 });
 
 mapPinMain.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter') {
     activateMap();
+    getAddress();
+  }
+});
+
+mapPinMain.removeEventListener('keydown', function (evt) {
+  if (evt.key === 'Enter') {
+    activateMap();
+    getAddress();
   }
 });
 
 var address = document.querySelector('#address');
+
+var getAddress = function () {
+  var locationX = Math.round(getRandomInt(0, 1200) - PIN_WIDTH / 2);
+  var locationY = Math.round(getRandomInt(130, 630) - PIN_HEIGHT);
+  address.value = locationX + ', ' + locationY;
+};
+
+var roomElements = document.querySelector('#room_number');
+var capacityElements = document.querySelector('#capacity');
+var adFormSubmit = document.querySelector('.ad-form__submit');
+
+var matchingFields = function () {
+  if (roomElements.value === '1' && capacityElements.value > roomElements.value || capacityElements.value === '0') {
+    capacityElements.setCustomValidity('Только для 1 гостя');
+  } else if (roomElements.value === '2' && capacityElements.value > roomElements.value || capacityElements.value === '0') {
+    capacityElements.setCustomValidity('До 2 гостей');
+  } else if (roomElements.value === '3' && capacityElements.value === '0') {
+    capacityElements.setCustomValidity('До 3 гостей');
+  } else if (roomElements.value === '100' && capacityElements.value !== '0') {
+    capacityElements.setCustomValidity('Только не для гостей');
+  } else {
+    capacityElements.setCustomValidity('');
+  }
+};
+
+adFormSubmit.addEventListener('click', function () {
+  matchingFields();
+});
