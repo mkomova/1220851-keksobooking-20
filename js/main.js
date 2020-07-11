@@ -240,6 +240,8 @@ var activateMap = function () {
   makeElementsActive(adFormFieldset);
   makeElementsActive(mapFiltersSelect);
   makeElementsActive(mapFeatures);
+
+  mapPinMain.removeEventListener('keydown', keyDownHandler);
 };
 
 mapPinMain.addEventListener('mousedown', function (evt) {
@@ -249,19 +251,14 @@ mapPinMain.addEventListener('mousedown', function (evt) {
   }
 });
 
-mapPinMain.addEventListener('keydown', function (evt) {
+var keyDownHandler = function (evt) {
   if (evt.key === 'Enter') {
     activateMap();
     getAddress();
   }
-});
+};
 
-mapPinMain.removeEventListener('keydown', function (evt) {
-  if (evt.key === 'Enter') {
-    activateMap();
-    getAddress();
-  }
-});
+mapPinMain.addEventListener('keydown', keyDownHandler);
 
 var address = document.querySelector('#address');
 
@@ -276,9 +273,9 @@ var capacityElements = document.querySelector('#capacity');
 var adFormSubmit = document.querySelector('.ad-form__submit');
 
 var matchingFields = function () {
-  if (roomElements.value === '1' && capacityElements.value > roomElements.value || capacityElements.value === '0') {
+  if (roomElements.value === '1' && capacityElements.value !== '1') {
     capacityElements.setCustomValidity('Только для 1 гостя');
-  } else if (roomElements.value === '2' && capacityElements.value > roomElements.value || capacityElements.value === '0') {
+  } else if (roomElements.value === '2' && (capacityElements.value > roomElements.value || capacityElements.value === '0')) {
     capacityElements.setCustomValidity('До 2 гостей');
   } else if (roomElements.value === '3' && capacityElements.value === '0') {
     capacityElements.setCustomValidity('До 3 гостей');
