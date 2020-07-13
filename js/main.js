@@ -51,7 +51,7 @@ var getArrayRandomLength = function (array) {
   return array.slice(getRandomInt(0, array.length));
 };
 
-
+// Отрисовка карточек
 var generateRentAdverts = function (quantity) {
 
   var rentAdverts = [];
@@ -89,6 +89,7 @@ var generateRentAdverts = function (quantity) {
 
 var rentAdverts = generateRentAdverts(RENT_QUANTITY);
 
+// Отрисовка меток
 var map = document.querySelector('.map');
 
 var mapPinsElement = document.querySelector('.map__pins');
@@ -115,7 +116,7 @@ for (var k = 0; k < rentAdverts.length; k++) {
 }
 mapPinsElement.appendChild(fragment);
 
-/*
+// Попап карточки
 var cardTemplate = document.querySelector('#card')
   .content
   .querySelector('.map__card');
@@ -137,7 +138,7 @@ var generateCard = function (rentAd) {
 
   cardTitle.textContent = rentAd.offer.title;
   cardAdress.textContent = rentAd.offer.address;
-  cardPrice.textContent = rentAd.offer.price + '₽/ночь';
+  cardPrice.textContent = rentAd.offer.price + ' ₽/ночь';
 
   switch (rentAd.offer.type) {
     case ('flat'):
@@ -207,9 +208,7 @@ var renderOfferCard = function () {
   map.insertBefore(fragmentOffer, mapFiltersContainer);
 };
 
-renderOfferCard();
-*/
-
+// Активация карты
 var makeElementsDisabled = function (array) {
   for (var i = 0; i < array.length; i++) {
     array[i].setAttribute('disabled', 'true');
@@ -248,6 +247,7 @@ mapPinMain.addEventListener('mousedown', function (evt) {
   if (evt.button === LEFT_MOUSE_BUTTON) {
     activateMap();
     getAddress();
+    pressPins();
   }
 });
 
@@ -255,11 +255,13 @@ var keyDownHandler = function (evt) {
   if (evt.key === 'Enter') {
     activateMap();
     getAddress();
+    pressPins();
   }
 };
 
 mapPinMain.addEventListener('keydown', keyDownHandler);
 
+// Установка адреса
 var address = document.querySelector('#address');
 
 var getAddress = function () {
@@ -268,11 +270,12 @@ var getAddress = function () {
   address.value = locationX + ', ' + locationY;
 };
 
+// Соответствие количества гостей комнатам
 var roomElements = document.querySelector('#room_number');
 var capacityElements = document.querySelector('#capacity');
 var adFormSubmit = document.querySelector('.ad-form__submit');
 
-var matchingFields = function () {
+var getRoomsToGuests = function () {
   if (roomElements.value === '1' && capacityElements.value !== '1') {
     capacityElements.setCustomValidity('Только для 1 гостя');
   } else if (roomElements.value === '2' && (capacityElements.value > roomElements.value || capacityElements.value === '0')) {
@@ -287,5 +290,95 @@ var matchingFields = function () {
 };
 
 adFormSubmit.addEventListener('click', function () {
-  matchingFields();
+  getRoomsToGuests();
+});
+
+// Связка меток с карточками
+var mapPinButton = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+
+var pressPins = function () {
+  for (var i = 0; i < mapPinButton.length; i++) {
+    mapPinButton[i].addEventListener('click', clickPinButton);
+  }
+};
+
+var clickPinButton = function () {
+  var mapCard = document.querySelector('.map__card');
+  if (mapCard) {
+    mapCard.remove();
+  }
+  var currentPin = getRandomArrayElement(mapPinButton);
+  renderOfferCard(currentPin);
+
+  var popupCloseByKeydown = function (evt) {
+    evt.preventDefault();
+    if (evt.key === 'Escape') {
+      popupCloseByKeydown(evt);
+    }
+  };
+
+  var popup = document.querySelector('.popup');
+  var popupClose = popup.querySelector('.popup__close');
+
+  var popupCloseByClick = function () {
+    popup.remove();
+    popupClose.removeEventListener('click', popupCloseByClick);
+    document.removeEventListener('keydown', popupCloseByKeydown);
+  };
+  popupClose.addEventListener('click', popupCloseByClick);
+  document.addEventListener('keydown', popupCloseByKeydown);
+};
+
+// Время заезда и выезда
+var timeIn = document.querySelector('#timein');
+var timeOut = document.querySelector('#timeout');
+
+var getTimeIn = function () {
+  if (timeIn.value !== timeOut.value) {
+    timeIn.setCustomValidity('Время заезда и выезда должно совпадать');
+  } else {
+    timeIn.setCustomValidity('');
+  }
+};
+
+var getTimeOut = function () {
+  if (timeOut.value !== timeIn.value) {
+    timeOut.setCustomValidity('Время заезда и выезда должно совпадать');
+  } else {
+    timeOut.setCustomValidity('');
+  }
+};
+getTimeIn();
+getTimeOut();
+
+timeIn.addEventListener('change', getTimeIn);
+timeOut.addEventListener('change', getTimeOut);
+
+// Тип жилья и минимальная цена
+var type = document.querySelector('#type');
+var price = document.querySelector('#price');
+
+var getPriceToType = function () {
+  switch (type.value) {
+    case ('bungalo'):
+      price.setAttribute('min', 0);
+      price.setAttribute('placeholder', 0);
+      break;
+    case ('flat'):
+      price.setAttribute('min', 1000);
+      price.setAttribute('placeholder', 1000);
+      break;
+    case ('house'):
+      price.setAttribute('min', 5000);
+      price.setAttribute('placeholder', 5000);
+      break;
+    case ('palace'):
+      price.setAttribute('min', 10000);
+      price.setAttribute('placeholder', 10000);
+      break;
+  }
+};
+
+type.addEventListener('change', function () {
+  getPriceToType();
 });
