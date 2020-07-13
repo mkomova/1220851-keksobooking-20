@@ -51,7 +51,7 @@ var getArrayRandomLength = function (array) {
   return array.slice(getRandomInt(0, array.length));
 };
 
-// Отрисовка карточек
+// Отрисовка массива карточек
 var generateRentAdverts = function (quantity) {
 
   var rentAdverts = [];
@@ -111,8 +111,8 @@ var generatePin = function (forRent) {
 };
 
 var fragment = document.createDocumentFragment();
-for (var k = 0; k < rentAdverts.length; k++) {
-  fragment.appendChild(generatePin(rentAdverts[k]));
+for (var i = 0; i < rentAdverts.length; i++) {
+  fragment.appendChild(generatePin(rentAdverts[i]));
 }
 mapPinsElement.appendChild(fragment);
 
@@ -204,7 +204,7 @@ var mapFiltersContainer = document.querySelector('.map__filters-container');
 
 var renderOfferCard = function () {
   var fragmentOffer = document.createDocumentFragment();
-  fragmentOffer.appendChild(generateCard(rentAdverts[0]));
+  fragmentOffer.appendChild(generateCard(getRandomArrayElement(rentAdverts)));
   map.insertBefore(fragmentOffer, mapFiltersContainer);
 };
 
@@ -298,7 +298,10 @@ var mapPinButton = document.querySelectorAll('.map__pin:not(.map__pin--main)');
 
 var pressPins = function () {
   for (var i = 0; i < mapPinButton.length; i++) {
-    mapPinButton[i].addEventListener('click', clickPinButton);
+    mapPinButton[i].addEventListener('click', function () {
+      var currentCard = i;
+      clickPinButton(currentCard);
+    });
   }
 };
 
@@ -307,13 +310,12 @@ var clickPinButton = function () {
   if (mapCard) {
     mapCard.remove();
   }
-  var currentPin = getRandomArrayElement(mapPinButton);
-  renderOfferCard(currentPin);
+  renderOfferCard();
 
   var popupCloseByKeydown = function (evt) {
     evt.preventDefault();
     if (evt.key === 'Escape') {
-      popupCloseByKeydown(evt);
+      popupCloseByClick(evt);
     }
   };
 
