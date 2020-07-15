@@ -202,10 +202,9 @@ var generateCard = function (rentAd) {
 
 var mapFiltersContainer = document.querySelector('.map__filters-container');
 
-var renderOfferCard = function () {
-  var fragmentOffer = document.createDocumentFragment();
-  fragmentOffer.appendChild(generateCard(getRandomArrayElement(rentAdverts)));
-  map.insertBefore(fragmentOffer, mapFiltersContainer);
+var renderOfferCard = function (id) {
+  var card = generateCard(rentAdverts[id]);
+  map.insertBefore(card, mapFiltersContainer);
 };
 
 // Активация карты
@@ -298,19 +297,18 @@ var mapPinButton = document.querySelectorAll('.map__pin:not(.map__pin--main)');
 
 var pressPins = function () {
   for (var i = 0; i < mapPinButton.length; i++) {
-    mapPinButton[i].addEventListener('click', function () {
-      var currentCard = i;
-      clickPinButton(currentCard);
-    });
+    mapPinButton[i].id = i;
+    mapPinButton[i].addEventListener('click', clickPinButton);
   }
 };
 
-var clickPinButton = function () {
+var clickPinButton = function (evtClickPin) {
   var mapCard = document.querySelector('.map__card');
   if (mapCard) {
     mapCard.remove();
   }
-  renderOfferCard();
+  var id = parseInt(evtClickPin.currentTarget.id, 10);
+  renderOfferCard(id);
 
   var popupCloseByKeydown = function (evt) {
     evt.preventDefault();
