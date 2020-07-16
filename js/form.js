@@ -2,11 +2,13 @@
 
 window.form = (function () {
   // Установка адреса
+  var PIN_WIDTH = 50;
+  var PIN_HEIGHT = 70;
   var address = document.querySelector('#address');
 
   var getAddress = function () {
-    var locationX = Math.round(window.util.getRandomInt(0, 1200) - window.pins.PIN_WIDTH / 2);
-    var locationY = Math.round(window.util.getRandomInt(130, 630) - window.pins.PIN_HEIGHT);
+    var locationX = Math.round(window.util.getRandomInt(0, 1200) - PIN_WIDTH / 2);
+    var locationY = Math.round(window.util.getRandomInt(130, 630) - PIN_HEIGHT);
     address.value = locationX + ', ' + locationY;
   };
 

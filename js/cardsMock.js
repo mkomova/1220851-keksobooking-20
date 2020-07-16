@@ -72,7 +72,6 @@ window.cards = (function () {
   var rentAdverts = generateRentAdverts(RENT_QUANTITY);
 
   return {
-    generateRentAdverts: generateRentAdverts,
     rentAdverts: rentAdverts
   };
 })();
