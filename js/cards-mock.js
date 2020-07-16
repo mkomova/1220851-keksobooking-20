@@ -1,6 +1,6 @@
 'use strict';
 
-window.cards = (function () {
+window.cardsMock = (function () {
 
   var RENT_QUANTITY = 8;
 

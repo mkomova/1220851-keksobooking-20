@@ -88,7 +88,7 @@ window.popup = (function () {
   var mapFiltersContainer = document.querySelector('.map__filters-container');
 
   var renderOfferCard = function (id) {
-    var card = generateCard(window.cards.rentAdverts[id]);
+    var card = generateCard(window.cardsMock.rentAdverts[id]);
     map.insertBefore(card, mapFiltersContainer);
   };
 

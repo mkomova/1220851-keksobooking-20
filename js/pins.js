@@ -24,8 +24,8 @@ window.pins = (function () {
   };
 
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < window.cards.rentAdverts.length; i++) {
-    fragment.appendChild(generatePin(window.cards.rentAdverts[i]));
+  for (var i = 0; i < window.cardsMock.rentAdverts.length; i++) {
+    fragment.appendChild(generatePin(window.cardsMock.rentAdverts[i]));
   }
   mapPinsElement.appendChild(fragment);
 
