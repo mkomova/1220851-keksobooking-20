@@ -34,13 +34,18 @@ window.cardsMock = (function () {
     'http://o0.github.io/assets/images/tokyo/hotel3.jpg'
   ];
 
+  var Y_MIN = 130;
+  var Y_MAX = 630;
+  var X_MIN = -30;
+  var X_MAX = 1170;
+
   var generateRentAdverts = function (quantity) {
 
     var rentAdverts = [];
 
     for (var i = 0; i < quantity; i++) {
-      var rentLocationX = window.util.getRandomInt(0, 1200);
-      var rentLocationY = window.util.getRandomInt(130, 630);
+      var rentLocationX = window.util.getRandomInt(X_MIN, X_MAX);
+      var rentLocationY = window.util.getRandomInt(Y_MIN, Y_MAX);
       var rentRooms = window.util.getRandomInt(1, 100);
 
       rentAdverts[i] = {
