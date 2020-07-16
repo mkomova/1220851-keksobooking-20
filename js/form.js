@@ -4,11 +4,15 @@ window.form = (function () {
   // Установка адреса
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
+  var Y_MIN = 130;
+  var Y_MAX = 630;
+  var X_MIN = -30;
+  var X_MAX = 1170;
   var address = document.querySelector('#address');
 
   var getAddress = function () {
-    var locationX = Math.round(window.util.getRandomInt(0, 1200) - PIN_WIDTH / 2);
-    var locationY = Math.round(window.util.getRandomInt(130, 630) - PIN_HEIGHT);
+    var locationX = Math.round(window.util.getRandomInt(X_MIN, X_MAX) - PIN_WIDTH / 2);
+    var locationY = Math.round(window.util.getRandomInt(Y_MIN, Y_MAX) - PIN_HEIGHT);
     address.value = locationX + ', ' + locationY;
   };
 

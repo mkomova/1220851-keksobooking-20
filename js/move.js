@@ -1,8 +1,12 @@
 'use strict';
 
 window.move = (function () {
+  var Y_MIN = 130;
+  var Y_MAX = 630;
+  var X_MIN = -30;
+  var X_MAX = 1170;
+
   var mapPinMain = document.querySelector('.map__pin--main');
-  var mapPins = document.querySelector('.map__pins');
 
   mapPinMain.addEventListener('mousedown', function (evt) {
     evt.preventDefault();
@@ -25,8 +29,19 @@ window.move = (function () {
         y: moveEvt.clientY
       };
 
-      mapPins.style.top = (mapPins.offsetTop - shift.y) + 'px';
-      mapPins.style.left = (mapPins.offsetLeft - shift.x) + 'px';
+      if (((mapPinMain.offsetTop - shift.y) <= Y_MIN) || ((mapPinMain.offsetTop - shift.y) >= Y_MAX)) {
+        mapPinMain.style.top = mapPinMain.offsetTop + 'px';
+      } else {
+        mapPinMain.style.top = (mapPinMain.offsetTop - shift.y) + 'px';
+      }
+
+      if (((mapPinMain.offsetLeft - shift.x) <= X_MIN) || ((mapPinMain.offsetLeft - shift.x) >= X_MAX)) {
+        mapPinMain.style.left = mapPinMain.offsetLeft + 'px';
+      } else {
+        mapPinMain.style.left = (mapPinMain.offsetLeft - shift.x) + 'px';
+      }
+
+      window.form.getAddress();
     };
 
     var onMouseUp = function (upEvt) {
