@@ -92,8 +92,17 @@ window.popup = (function () {
     map.insertBefore(card, mapFiltersContainer);
   };
 
+  var cardsHandler = function (rentAdverts) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < 8; i++) {
+      fragment.appendChild(generateCard(rentAdverts[i]));
+    }
+   return map.insertBefore(fragment, mapFiltersContainer);
+  };
+
   return {
     renderOfferCard: renderOfferCard,
     generateCard: generateCard,
+    cardsHandler: cardsHandler
   };
 })();

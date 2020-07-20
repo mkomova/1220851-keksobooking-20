@@ -93,6 +93,18 @@ window.form = (function () {
     getPriceToType();
   });
 
+  var notice = document.querySelector('.notice');
+  var adForm = notice.querySelector('.ad-form');
+  adForm.addEventListener('submit', function (evt) {
+    window.upload(new FormData(adForm), function (response) {
+      notice.classList.add('ad-form--disabled');
+      adForm.reset();
+      window.util.getSuccessMessage();
+
+    });
+    evt.preventDefault();
+  });
+
   return {
     getAddress: getAddress,
   };

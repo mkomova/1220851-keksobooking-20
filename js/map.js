@@ -93,6 +93,7 @@ window.map = (function () {
   };
 
   return {
-    activateMap: activateMap
+    activateMap: activateMap,
+    pressPins: pressPins
   };
 })();
