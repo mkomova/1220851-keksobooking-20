@@ -95,14 +95,19 @@ window.form = (function () {
 
   var notice = document.querySelector('.notice');
   var adForm = notice.querySelector('.ad-form');
+
   adForm.addEventListener('submit', function (evt) {
-    window.upload(new FormData(adForm), function (response) {
+    window.upload(new FormData(adForm), function () {
       notice.classList.add('ad-form--disabled');
       adForm.reset();
       window.util.getSuccessMessage();
-
     });
     evt.preventDefault();
+  });
+
+  var resetButton = document.querySelector('.ad-form__reset');
+  resetButton.addEventListener('click', function () {
+    adForm.reset();
   });
 
   return {

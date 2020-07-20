@@ -47,18 +47,43 @@ window.util = (function () {
   };
 
   var popupCloseByClick = function (evt) {
-    if (evt.target !== successMessage) {
+    if (evt.target !== successMessage || evt.target !== errorMessage) {
       successElement.classList.add('hidden');
       document.removeEventListener('click', popupCloseByClick);
       document.removeEventListener('keydown', popupCloseByKeydown);
     }
   };
 
+  // Сообщение об ошибке
+  var errorTemplate = document.querySelector('#error')
+    .content
+    .querySelector('.error');
+
+  var generateErrorPopup = function () {
+    var errorPopup = errorTemplate.cloneNode(true);
+
+    return body.appendChild(errorPopup);
+  };
+  generateErrorPopup();
+
+  var errorElement = document.querySelector('.error');
+  var errorMessage = document.querySelector('.error__message');
+  var errorButton = document.querySelector('.error__button');
+
+  errorElement.classList.add('hidden');
+
+  var getErrorMessage = function () {
+    errorElement.classList.remove('hidden');
+    errorButton.addEventListener('click', popupCloseByClick);
+    document.addEventListener('keydown', popupCloseByKeydown);
+    document.addEventListener('click', popupCloseByClick);
+  };
 
   return {
     getRandomInt: getRandomInt,
     getRandomArrayElement: getRandomArrayElement,
     getArrayRandomLength: getArrayRandomLength,
     getSuccessMessage: getSuccessMessage,
+    getErrorMessage: getErrorMessage
   };
 })();
