@@ -93,6 +93,7 @@ window.popup = (function () {
   };
 
   return {
-    renderOfferCard: renderOfferCard
+    renderOfferCard: renderOfferCard,
+    generateCard: generateCard,
   };
 })();

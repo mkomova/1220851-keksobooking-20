@@ -5,7 +5,7 @@ window.pins = (function () {
 
   var PIN_HEIGHT = 70;
 
-  var mapPinsElement = document.querySelector('.map__pins');
+  var MAX_RENT_ADVERTS = 8;
 
   var pinTemplate = document.querySelector('#pin')
     .content
@@ -23,13 +23,32 @@ window.pins = (function () {
     return pin;
   };
 
-  var fragment = document.createDocumentFragment();
-  for (var i = 0; i < window.cardsMock.rentAdverts.length; i++) {
-    fragment.appendChild(generatePin(window.cardsMock.rentAdverts[i]));
-  }
-  mapPinsElement.appendChild(fragment);
+  var mapPinsElement = document.querySelector('.map__pins');
+
+  var successHandler = function (rentAdverts) {
+    var fragment = document.createDocumentFragment();
+    for (var i = 0; i < MAX_RENT_ADVERTS; i++) {
+      fragment.appendChild(generatePin(rentAdverts[i]));
+    }
+    mapPinsElement.appendChild(fragment);
+  };
+
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
+    node.style.position = 'absolute';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.fontSize = '30px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  window.load(successHandler, errorHandler);
 
   return {
     generatePin: generatePin,
+    successHandler: successHandler,
   };
 })();
