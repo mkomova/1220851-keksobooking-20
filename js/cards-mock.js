@@ -76,6 +76,7 @@ window.cardsMock = (function () {
   var rentAdverts = generateRentAdverts(RENT_QUANTITY);
 
   return {
-    rentAdverts: rentAdverts
+    rentAdverts: rentAdverts,
+    dataServer: [],
   };
 })();

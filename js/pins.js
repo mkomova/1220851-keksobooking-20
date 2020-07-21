@@ -25,12 +25,18 @@ window.pins = (function () {
 
   var mapPinsElement = document.querySelector('.map__pins');
 
-  var successHandler = function (rentAdverts) {
+  var renderPins = function (adverts) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < MAX_RENT_ADVERTS; i++) {
-      fragment.appendChild(generatePin(rentAdverts[i]));
+      fragment.appendChild(generatePin(adverts[i]));
     }
     mapPinsElement.appendChild(fragment);
+  };
+
+  var successHandler = function (rentAdverts) {
+    window.cardsMock.dataServer = rentAdverts;
+    renderPins(rentAdverts);
+    window.map.pressPins();
   };
 
   var errorHandler = function (errorMessage) {

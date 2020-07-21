@@ -20,7 +20,6 @@ window.map = (function () {
   var mapFiltersSelect = document.querySelectorAll('.map__filters select');
   var mapFeatures = document.querySelector('.map__features');
   var mapPinMain = document.querySelector('.map__pin--main');
-  var mapPinButton = document.querySelectorAll('.map__pin:not(.map__pin--main)');
 
   makeElementsDisabled(adFormFieldset);
   makeElementsDisabled(mapFiltersSelect);
@@ -66,6 +65,7 @@ window.map = (function () {
   };
 
   var pressPins = function () {
+    var mapPinButton = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     for (var i = 0; i < mapPinButton.length; i++) {
       mapPinButton[i].id = i;
       mapPinButton[i].addEventListener('click', clickPinButton);
@@ -77,7 +77,6 @@ window.map = (function () {
       activateMap();
       window.load(window.pins.successHandler, window.pins.errorHandler);
       window.form.getAddress();
-      pressPins();
     }
   });
 
@@ -85,7 +84,6 @@ window.map = (function () {
     if (evt.key === 'Enter') {
       activateMap();
       window.form.getAddress();
-      pressPins();
     }
   };
 
