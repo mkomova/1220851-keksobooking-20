@@ -20,11 +20,11 @@ window.map = (function () {
   var mapFiltersSelect = document.querySelectorAll('.map__filters select');
   var mapFeatures = document.querySelector('.map__features');
   var mapPinMain = document.querySelector('.map__pin--main');
+  var mapPinButton = document.querySelectorAll('.map__pin:not(.map__pin--main)');
 
   makeElementsDisabled(adFormFieldset);
   makeElementsDisabled(mapFiltersSelect);
   makeElementsDisabled(mapFeatures);
-
 
   var activateMap = function () {
     var map = document.querySelector('.map');
@@ -36,33 +36,6 @@ window.map = (function () {
     makeElementsActive(mapFeatures);
 
     mapPinMain.removeEventListener('keydown', keyDownHandler);
-  };
-
-  mapPinMain.addEventListener('mousedown', function (evt) {
-    if (evt.button === LEFT_MOUSE_BUTTON) {
-      activateMap();
-      window.form.getAddress();
-      pressPins();
-    }
-  });
-
-  var keyDownHandler = function (evt) {
-    if (evt.key === 'Enter') {
-      activateMap();
-      window.form.getAddress();
-      pressPins();
-    }
-  };
-
-  mapPinMain.addEventListener('keydown', keyDownHandler);
-
-  var mapPinButton = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-
-  var pressPins = function () {
-    for (var i = 0; i < mapPinButton.length; i++) {
-      mapPinButton[i].id = i;
-      mapPinButton[i].addEventListener('click', clickPinButton);
-    }
   };
 
   var clickPinButton = function (evtClickPin) {
@@ -91,6 +64,32 @@ window.map = (function () {
     popupClose.addEventListener('click', popupCloseByClick);
     document.addEventListener('keydown', popupCloseByKeydown);
   };
+
+  var pressPins = function () {
+    for (var i = 0; i < mapPinButton.length; i++) {
+      mapPinButton[i].id = i;
+      mapPinButton[i].addEventListener('click', clickPinButton);
+    }
+  };
+
+  mapPinMain.addEventListener('mousedown', function (evt) {
+    if (evt.button === LEFT_MOUSE_BUTTON) {
+      activateMap();
+      window.load(window.pins.successHandler, window.pins.errorHandler);
+      window.form.getAddress();
+      pressPins();
+    }
+  });
+
+  var keyDownHandler = function (evt) {
+    if (evt.key === 'Enter') {
+      activateMap();
+      window.form.getAddress();
+      pressPins();
+    }
+  };
+
+  mapPinMain.addEventListener('keydown', keyDownHandler);
 
   return {
     activateMap: activateMap,

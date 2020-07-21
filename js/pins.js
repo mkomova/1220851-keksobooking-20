@@ -45,10 +45,10 @@ window.pins = (function () {
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-  window.load(successHandler, errorHandler);
 
   return {
     generatePin: generatePin,
     successHandler: successHandler,
+    errorHandler: errorHandler
   };
 })();
