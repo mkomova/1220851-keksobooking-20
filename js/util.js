@@ -55,6 +55,8 @@ window.util = (function () {
   };
 
   // Сообщение об ошибке
+  var main = document.querySelector('main');
+
   var errorTemplate = document.querySelector('#error')
     .content
     .querySelector('.error');
@@ -62,7 +64,7 @@ window.util = (function () {
   var generateErrorPopup = function () {
     var errorPopup = errorTemplate.cloneNode(true);
 
-    return body.appendChild(errorPopup);
+    return main.appendChild(errorPopup);
   };
   generateErrorPopup();
 
