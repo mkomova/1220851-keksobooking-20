@@ -25,7 +25,6 @@ window.map = (function () {
   makeElementsDisabled(mapFiltersSelect);
   makeElementsDisabled(mapFeatures);
 
-
   var activateMap = function () {
     var map = document.querySelector('.map');
     map.classList.remove('map--faded');
@@ -36,33 +35,6 @@ window.map = (function () {
     makeElementsActive(mapFeatures);
 
     mapPinMain.removeEventListener('keydown', keyDownHandler);
-  };
-
-  mapPinMain.addEventListener('mousedown', function (evt) {
-    if (evt.button === LEFT_MOUSE_BUTTON) {
-      activateMap();
-      window.form.getAddress();
-      pressPins();
-    }
-  });
-
-  var keyDownHandler = function (evt) {
-    if (evt.key === 'Enter') {
-      activateMap();
-      window.form.getAddress();
-      pressPins();
-    }
-  };
-
-  mapPinMain.addEventListener('keydown', keyDownHandler);
-
-  var mapPinButton = document.querySelectorAll('.map__pin:not(.map__pin--main)');
-
-  var pressPins = function () {
-    for (var i = 0; i < mapPinButton.length; i++) {
-      mapPinButton[i].id = i;
-      mapPinButton[i].addEventListener('click', clickPinButton);
-    }
   };
 
   var clickPinButton = function (evtClickPin) {
@@ -92,7 +64,33 @@ window.map = (function () {
     document.addEventListener('keydown', popupCloseByKeydown);
   };
 
+  var pressPins = function () {
+    var mapPinButton = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+    for (var i = 0; i < mapPinButton.length; i++) {
+      mapPinButton[i].id = i;
+      mapPinButton[i].addEventListener('click', clickPinButton);
+    }
+  };
+
+  mapPinMain.addEventListener('mousedown', function (evt) {
+    if (evt.button === LEFT_MOUSE_BUTTON) {
+      activateMap();
+      window.load(window.pins.successHandler, window.pins.errorHandler);
+      window.form.getAddress();
+    }
+  });
+
+  var keyDownHandler = function (evt) {
+    if (evt.key === 'Enter') {
+      activateMap();
+      window.form.getAddress();
+    }
+  };
+
+  mapPinMain.addEventListener('keydown', keyDownHandler);
+
   return {
-    activateMap: activateMap
+    activateMap: activateMap,
+    pressPins: pressPins
   };
 })();

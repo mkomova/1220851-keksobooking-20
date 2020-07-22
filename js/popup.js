@@ -88,11 +88,12 @@ window.popup = (function () {
   var mapFiltersContainer = document.querySelector('.map__filters-container');
 
   var renderOfferCard = function (id) {
-    var card = generateCard(window.cardsMock.rentAdverts[id]);
+    var card = generateCard(window.data.dataServer[id]);
     map.insertBefore(card, mapFiltersContainer);
   };
 
   return {
-    renderOfferCard: renderOfferCard
+    renderOfferCard: renderOfferCard,
+    generateCard: generateCard,
   };
 })();

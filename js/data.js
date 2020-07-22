@@ -1,6 +1,6 @@
 'use strict';
 
-window.cardsMock = (function () {
+window.data = (function () {
 
   var RENT_QUANTITY = 8;
 
@@ -73,10 +73,10 @@ window.cardsMock = (function () {
     }
     return rentAdverts;
   };
-
   var rentAdverts = generateRentAdverts(RENT_QUANTITY);
 
   return {
-    rentAdverts: rentAdverts
+    rentAdverts: rentAdverts,
+    dataServer: [],
   };
 })();
