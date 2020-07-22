@@ -46,15 +46,15 @@ window.popup = (function () {
     var generateFeatures = function (features) {
       var fragmentFeatures = document.createDocumentFragment();
 
-      features.forEach(function (feature) {
+      for (var i = 0; i < features.length; i++) {
         var featureElement = document.createElement('li');
-        featureElement.className = 'popup__feature popup__feature--' + feature;
+        featureElement.className = 'popup__feature popup__feature--' + features[i];
         fragmentFeatures.appendChild(featureElement);
-      });
+      }
       return fragmentFeatures;
     };
 
-    for (var j = cardFeatures.length; j--;) {
+    for (var j = cardFeatures.length - 1; j >= 0; j--) {
       cardFeaturesContainer.removeChild(cardFeatures[j]);
     }
     cardFeaturesContainer.appendChild(generateFeatures(rentAd.offer.features));
