@@ -15,12 +15,20 @@ window.map = (function () {
     }
   };
 
+  var removeCard = function () {
+    var mapCard = document.querySelector('.map__card');
+    if (mapCard) {
+      mapCard.remove();
+    }
+  };
+
   var hidePins = function () {
     var minorMapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
 
     for (var i = 0; i < minorMapPins.length; i++) {
       minorMapPins[i].classList.add('hidden');
     }
+    removeCard();
   };
 
   var activatePins = function () {
@@ -54,10 +62,8 @@ window.map = (function () {
   };
 
   var clickPinButton = function (evtClickPin) {
-    var mapCard = document.querySelector('.map__card');
-    if (mapCard) {
-      mapCard.remove();
-    }
+    removeCard();
+
     var id = parseInt(evtClickPin.currentTarget.id, 10);
     window.popup.renderOfferCard(id);
 
