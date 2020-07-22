@@ -15,6 +15,30 @@ window.map = (function () {
     }
   };
 
+  var removeCard = function () {
+    var mapCard = document.querySelector('.map__card');
+    if (mapCard) {
+      mapCard.remove();
+    }
+  };
+
+  var hidePins = function () {
+    var minorMapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+
+    for (var i = 0; i < minorMapPins.length; i++) {
+      minorMapPins[i].classList.add('hidden');
+    }
+    removeCard();
+  };
+
+  var activatePins = function () {
+    var minorMapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+
+    for (var i = 0; i < minorMapPins.length; i++) {
+      minorMapPins[i].classList.remove('hidden');
+    }
+  };
+
   var adForm = document.querySelector('.ad-form');
   var adFormFieldset = document.querySelectorAll('.ad-form fieldset');
   var mapFiltersSelect = document.querySelectorAll('.map__filters select');
@@ -38,16 +62,14 @@ window.map = (function () {
   };
 
   var clickPinButton = function (evtClickPin) {
-    var mapCard = document.querySelector('.map__card');
-    if (mapCard) {
-      mapCard.remove();
-    }
+    removeCard();
+
     var id = parseInt(evtClickPin.currentTarget.id, 10);
     window.popup.renderOfferCard(id);
 
     var popupCloseByKeydown = function (evt) {
-      evt.preventDefault();
       if (evt.key === 'Escape') {
+        evt.preventDefault();
         popupCloseByClick(evt);
       }
     };
@@ -75,7 +97,11 @@ window.map = (function () {
   mapPinMain.addEventListener('mousedown', function (evt) {
     if (evt.button === LEFT_MOUSE_BUTTON) {
       activateMap();
-      window.load(window.pins.successHandler, window.pins.errorHandler);
+      if (!window.data.dataServer.length) {
+        window.load(window.pins.successHandler, window.pins.errorHandler);
+      } else {
+        activatePins();
+      }
       window.form.getAddress();
     }
   });
@@ -91,6 +117,7 @@ window.map = (function () {
 
   return {
     activateMap: activateMap,
-    pressPins: pressPins
+    pressPins: pressPins,
+    hidePins: hidePins
   };
 })();

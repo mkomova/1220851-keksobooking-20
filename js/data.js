@@ -2,7 +2,7 @@
 
 window.data = (function () {
 
-  var RENT_QUANTITY = 8;
+  var RENT_QUANTITY = 10;
 
   var MAX_PRICE_VALUE = 100000;
 

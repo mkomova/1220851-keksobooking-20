@@ -18,7 +18,7 @@
     });
 
     xhr.addEventListener('error', function () {
-      window.util.getErrorMessage();
+      window.messages.getErrorMessage();
     });
 
     xhr.open('POST', URL);

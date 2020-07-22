@@ -5,7 +5,7 @@ window.pins = (function () {
 
   var PIN_HEIGHT = 70;
 
-  var MAX_RENT_ADVERTS = 8;
+  var MAX_RENT_ADVERTS = 10;
 
   var pinTemplate = document.querySelector('#pin')
     .content
