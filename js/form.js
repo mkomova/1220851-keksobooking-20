@@ -100,7 +100,7 @@ window.form = (function () {
   adForm.addEventListener('submit', function (evt) {
     window.upload(new FormData(adForm), function () {
       map.classList.add('map--faded');
-      notice.classList.add('ad-form--disabled');
+      adForm.classList.add('ad-form--disabled');
       window.map.hidePins();
       adForm.reset();
       window.messages.getSuccessMessage();

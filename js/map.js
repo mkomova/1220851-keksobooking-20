@@ -16,10 +16,18 @@ window.map = (function () {
   };
 
   var hidePins = function () {
-    var minorMapPins = document.querySelectorAll('.map__pin[type="button"]');
+    var minorMapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
 
     for (var i = 0; i < minorMapPins.length; i++) {
       minorMapPins[i].classList.add('hidden');
+    }
+  };
+
+  var activatePins = function () {
+    var minorMapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
+
+    for (var i = 0; i < minorMapPins.length; i++) {
+      minorMapPins[i].classList.remove('hidden');
     }
   };
 
@@ -54,8 +62,8 @@ window.map = (function () {
     window.popup.renderOfferCard(id);
 
     var popupCloseByKeydown = function (evt) {
-      evt.preventDefault();
       if (evt.key === 'Escape') {
+        evt.preventDefault();
         popupCloseByClick(evt);
       }
     };
@@ -83,7 +91,11 @@ window.map = (function () {
   mapPinMain.addEventListener('mousedown', function (evt) {
     if (evt.button === LEFT_MOUSE_BUTTON) {
       activateMap();
-      window.load(window.pins.successHandler, window.pins.errorHandler);
+      if (!window.data.dataServer.length) {
+        window.load(window.pins.successHandler, window.pins.errorHandler);
+      } else {
+        activatePins();
+      }
       window.form.getAddress();
     }
   });
