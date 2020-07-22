@@ -15,6 +15,14 @@ window.map = (function () {
     }
   };
 
+  var hidePins = function () {
+    var minorMapPins = document.querySelectorAll('.map__pin[type="button"]');
+
+    for (var i = 0; i < minorMapPins.length; i++) {
+      minorMapPins[i].classList.add('hidden');
+    }
+  };
+
   var adForm = document.querySelector('.ad-form');
   var adFormFieldset = document.querySelectorAll('.ad-form fieldset');
   var mapFiltersSelect = document.querySelectorAll('.map__filters select');
@@ -91,6 +99,7 @@ window.map = (function () {
 
   return {
     activateMap: activateMap,
-    pressPins: pressPins
+    pressPins: pressPins,
+    hidePins: hidePins
   };
 })();
