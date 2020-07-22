@@ -93,11 +93,13 @@ window.form = (function () {
     getPriceToType();
   });
 
+  var map = document.querySelector('.map');
   var notice = document.querySelector('.notice');
   var adForm = notice.querySelector('.ad-form');
 
   adForm.addEventListener('submit', function (evt) {
     window.upload(new FormData(adForm), function () {
+      map.classList.add('map--faded');
       notice.classList.add('ad-form--disabled');
       adForm.reset();
       window.util.getSuccessMessage();

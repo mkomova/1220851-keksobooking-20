@@ -49,6 +49,7 @@ window.util = (function () {
   var popupCloseByClick = function (evt) {
     if (evt.target !== successMessage || evt.target !== errorMessage) {
       successElement.classList.add('hidden');
+      errorElement.classList.add('hidden');
       document.removeEventListener('click', popupCloseByClick);
       document.removeEventListener('keydown', popupCloseByKeydown);
     }
