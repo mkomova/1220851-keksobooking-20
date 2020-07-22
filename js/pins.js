@@ -34,7 +34,7 @@ window.pins = (function () {
   };
 
   var successHandler = function (rentAdverts) {
-    window.cardsMock.dataServer = rentAdverts;
+    window.data.dataServer = rentAdverts;
     renderPins(rentAdverts);
     window.map.pressPins();
   };
@@ -55,6 +55,6 @@ window.pins = (function () {
   return {
     generatePin: generatePin,
     successHandler: successHandler,
-    errorHandler: errorHandler
+    errorHandler: errorHandler,
   };
 })();
