@@ -118,6 +118,8 @@ window.map = (function () {
   return {
     activateMap: activateMap,
     pressPins: pressPins,
-    hidePins: hidePins
+    hidePins: hidePins,
+    removeCard: removeCard,
+    clickPinButton: clickPinButton
   };
 })();

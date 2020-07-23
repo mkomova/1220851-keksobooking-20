@@ -56,5 +56,6 @@ window.pins = (function () {
     generatePin: generatePin,
     successHandler: successHandler,
     errorHandler: errorHandler,
+    renderPins: renderPins,
   };
 })();
