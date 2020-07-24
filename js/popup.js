@@ -95,21 +95,7 @@ window.popup = (function () {
     var card = generateCard(window.filter.similarTypes[adverts]);
     map.insertBefore(card, mapFiltersContainer);
   };
-  /*
-    var renderOfferCard = function (adverts) {
-      var mapCards = document.querySelectorAll('.map__card');
-      var fragment = document.createDocumentFragment();
-      var quantityCards = adverts.length > MAX_RENT_ADVERTS ? MAX_RENT_ADVERTS : adverts.length;
 
-      for (i = 0; i < mapCards.length; i++) {
-        mapCards[i].remove();
-      }
-      for (var i = 0; i < quantityCards; i++) {
-        fragment.appendChild(generateCard(window.filter.similarTypes[adverts]));
-      }
-      map.insertBefore(fragment, mapFiltersContainer);
-    };
-  */
   return {
     renderOfferCard: renderOfferCard,
     generateCard: generateCard,

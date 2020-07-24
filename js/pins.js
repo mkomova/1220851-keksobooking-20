@@ -5,6 +5,10 @@ window.pins = (function () {
 
   var PIN_HEIGHT = 70;
 
+  var MAIN_PIN_ADDRESS_TOP = '375px';
+
+  var MAIN_PIN_ADDRESS_LEFT = '570px';
+
   var MAX_SIMILAR_PINS_COUNT = 5;
 
   var pinTemplate = document.querySelector('#pin')
@@ -21,6 +25,13 @@ window.pins = (function () {
     pin.style.top = forRent.location.y - PIN_HEIGHT + 'px';
 
     return pin;
+  };
+
+  var mapPinMain = document.querySelector('.map__pin--main');
+
+  var startMainPinPosition = function () {
+    mapPinMain.style.top = MAIN_PIN_ADDRESS_TOP;
+    mapPinMain.style.left = MAIN_PIN_ADDRESS_LEFT;
   };
 
   var mapPinsElement = document.querySelector('.map__pins');
@@ -41,7 +52,7 @@ window.pins = (function () {
 
   var successHandler = function (rentAdverts) {
     window.data.dataServer = rentAdverts;
-    window.filter.similarTypes = rentAdverts;
+    window.filter.similarTypes = rentAdverts.slice();
     renderPins(rentAdverts);
     window.map.pressPins();
   };
@@ -58,11 +69,11 @@ window.pins = (function () {
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-
   return {
     generatePin: generatePin,
     successHandler: successHandler,
     errorHandler: errorHandler,
     renderPins: renderPins,
+    startMainPinPosition: startMainPinPosition
   };
 })();
