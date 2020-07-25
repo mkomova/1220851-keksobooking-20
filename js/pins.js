@@ -51,7 +51,7 @@ window.pins = (function () {
   };
 
   var successHandler = function (rentAdverts) {
-    window.data.dataServer = rentAdverts;
+    window.data.server = rentAdverts;
     window.filter.similarTypes = rentAdverts.slice();
     renderPins(rentAdverts);
     window.map.pressPins();

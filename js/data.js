@@ -77,6 +77,6 @@ window.data = (function () {
 
   return {
     rentAdverts: rentAdverts,
-    dataServer: [],
+    server: [],
   };
 })();
