@@ -22,7 +22,7 @@ window.filter = (function () {
 
   var updateOffer = function (data) {
     if (data !== 'any') {
-      window.filter.similarTypes = window.data.dataServer.filter(function (item) {
+      window.filter.similarTypes = window.data.server.filter(function (item) {
         return item.offer.type === housingType.value || housingType.value === 'any';
       }).filter(function (item) {
         if (housingPrice.value === 'low') {
@@ -84,6 +84,12 @@ window.filter = (function () {
     getHousingFeatures(housingFeatures[i]);
   }
 
+  var resetFilterCards = function () {
+    window.pins.renderPins(window.data.server);
+    window.map.removeCard();
+    window.map.pressPins();
+  };
+
   var resetFilter = function () {
     housingType.value = 'any';
     housingPrice.value = 'any';
@@ -96,6 +102,7 @@ window.filter = (function () {
         housingFeatures[j].checked = false;
       }
     }
+    resetFilterCards();
   };
 
   return {
