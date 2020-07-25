@@ -5,7 +5,11 @@ window.pins = (function () {
 
   var PIN_HEIGHT = 70;
 
-  var MAX_RENT_ADVERTS = 10;
+  var MAIN_PIN_ADDRESS_TOP = '375px';
+
+  var MAIN_PIN_ADDRESS_LEFT = '570px';
+
+  var MAX_SIMILAR_PINS_COUNT = 5;
 
   var pinTemplate = document.querySelector('#pin')
     .content
@@ -23,11 +27,24 @@ window.pins = (function () {
     return pin;
   };
 
+  var mapPinMain = document.querySelector('.map__pin--main');
+
+  var startMainPinPosition = function () {
+    mapPinMain.style.top = MAIN_PIN_ADDRESS_TOP;
+    mapPinMain.style.left = MAIN_PIN_ADDRESS_LEFT;
+  };
+
   var mapPinsElement = document.querySelector('.map__pins');
 
   var renderPins = function (adverts) {
+    var mapPins = document.querySelectorAll('.map__pin:not(.map__pin--main)');
     var fragment = document.createDocumentFragment();
-    for (var i = 0; i < MAX_RENT_ADVERTS; i++) {
+    var quantityPins = adverts.length > MAX_SIMILAR_PINS_COUNT ? MAX_SIMILAR_PINS_COUNT : adverts.length;
+
+    for (i = 0; i < mapPins.length; i++) {
+      mapPins[i].remove();
+    }
+    for (var i = 0; i < quantityPins; i++) {
       fragment.appendChild(generatePin(adverts[i]));
     }
     mapPinsElement.appendChild(fragment);
@@ -35,6 +52,7 @@ window.pins = (function () {
 
   var successHandler = function (rentAdverts) {
     window.data.dataServer = rentAdverts;
+    window.filter.similarTypes = rentAdverts.slice();
     renderPins(rentAdverts);
     window.map.pressPins();
   };
@@ -51,10 +69,11 @@ window.pins = (function () {
     document.body.insertAdjacentElement('afterbegin', node);
   };
 
-
   return {
     generatePin: generatePin,
     successHandler: successHandler,
     errorHandler: errorHandler,
+    renderPins: renderPins,
+    startMainPinPosition: startMainPinPosition
   };
 })();

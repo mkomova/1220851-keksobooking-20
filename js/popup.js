@@ -87,8 +87,12 @@ window.popup = (function () {
 
   var mapFiltersContainer = document.querySelector('.map__filters-container');
 
-  var renderOfferCard = function (id) {
-    var card = generateCard(window.data.dataServer[id]);
+  var renderOfferCard = function (adverts) {
+    var mapCards = document.querySelectorAll('.map__card');
+    for (var i = 0; i < mapCards.length; i++) {
+      mapCards[i].remove();
+    }
+    var card = generateCard(window.filter.similarTypes[adverts]);
     map.insertBefore(card, mapFiltersContainer);
   };
 

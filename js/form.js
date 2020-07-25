@@ -97,12 +97,19 @@ window.form = (function () {
   var notice = document.querySelector('.notice');
   var adForm = notice.querySelector('.ad-form');
 
+  var reset = function () {
+    map.classList.add('map--faded');
+    adForm.classList.add('ad-form--disabled');
+    adForm.reset();
+    window.pins.startMainPinPosition();
+    window.form.getAddress();
+    window.filter.resetFilter();
+    window.map.hidePins();
+  };
+
   adForm.addEventListener('submit', function (evt) {
     window.upload(new FormData(adForm), function () {
-      map.classList.add('map--faded');
-      adForm.classList.add('ad-form--disabled');
-      window.map.hidePins();
-      adForm.reset();
+      reset();
       window.messages.getSuccessMessage();
     });
     evt.preventDefault();
@@ -110,7 +117,7 @@ window.form = (function () {
 
   var resetButton = document.querySelector('.ad-form__reset');
   resetButton.addEventListener('click', function () {
-    adForm.reset();
+    reset();
   });
 
   return {
