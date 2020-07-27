@@ -105,7 +105,7 @@ window.map = (function () {
   mapPinMain.addEventListener('mousedown', function (evt) {
     if (evt.button === LEFT_MOUSE_BUTTON) {
       activateMap();
-      if (!window.data.server.length) {
+      if (!window.popup.dataServer.length) {
         window.load(window.pins.successHandler, window.pins.errorHandler);
       } else {
         activatePins();

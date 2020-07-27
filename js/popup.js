@@ -97,6 +97,7 @@ window.popup = (function () {
   };
 
   return {
+    dataServer: [],
     renderOfferCard: renderOfferCard,
     generateCard: generateCard,
   };

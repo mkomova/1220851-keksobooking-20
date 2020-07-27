@@ -4,15 +4,13 @@ window.form = (function () {
   // Установка адреса
   var PIN_WIDTH = 50;
   var PIN_HEIGHT = 70;
-  var Y_MIN = 130;
-  var Y_MAX = 630;
-  var X_MIN = -30;
-  var X_MAX = 1170;
+
   var address = document.querySelector('#address');
+  var mapPinMain = document.querySelector('.map__pin--main');
 
   var getAddress = function () {
-    var locationX = Math.round(window.util.getRandomInt(X_MIN, X_MAX) - PIN_WIDTH / 2);
-    var locationY = Math.round(window.util.getRandomInt(Y_MIN, Y_MAX) - PIN_HEIGHT);
+    var locationX = parseInt(mapPinMain.style.left, 10) + PIN_WIDTH / 2;
+    var locationY = parseInt(mapPinMain.style.top, 10) + PIN_HEIGHT;
     address.value = locationX + ', ' + locationY;
   };
 
@@ -45,17 +43,13 @@ window.form = (function () {
 
   var getTimeIn = function () {
     if (timeIn.value !== timeOut.value) {
-      timeIn.setCustomValidity('Время заезда и выезда должно совпадать');
-    } else {
-      timeIn.setCustomValidity('');
+      timeOut.value = timeIn.value;
     }
   };
 
   var getTimeOut = function () {
     if (timeOut.value !== timeIn.value) {
-      timeOut.setCustomValidity('Время заезда и выезда должно совпадать');
-    } else {
-      timeOut.setCustomValidity('');
+      timeIn.value = timeOut.value;
     }
   };
   getTimeIn();
@@ -105,6 +99,8 @@ window.form = (function () {
     window.form.getAddress();
     window.filter.resetFilter();
     window.map.hidePins();
+    window.avatar.removeAvatar();
+    window.formPhoto.removePhoto();
   };
 
   adForm.addEventListener('submit', function (evt) {
