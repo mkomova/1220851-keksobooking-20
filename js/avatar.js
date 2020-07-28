@@ -1,6 +1,6 @@
 'use strict';
 
-(function () {
+window.avatar = (function () {
   var FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
   var fileChooserAvatar = document.querySelector('.ad-form-header__upload input[type=file]');
@@ -26,8 +26,7 @@
   });
 
   var removeAvatar = function () {
-    var avatar = previewAvatar.querySelector('img');
-    if (avatar) {
+    if (previewAvatar) {
       previewAvatar.src = 'img/muffin-grey.svg';
     }
   };

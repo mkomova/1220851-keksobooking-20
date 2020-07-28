@@ -1,8 +1,8 @@
 'use strict';
 
 window.move = (function () {
-  var Y_MIN = 130;
-  var Y_MAX = 630;
+  var Y_MIN = 129;
+  var Y_MAX = 631;
   var X_MIN = -30;
   var X_MAX = 1170;
 
